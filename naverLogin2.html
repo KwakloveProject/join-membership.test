@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 아이디 입력폼에서 커서 다른데로 이동했을때 콜함수(onkeyup)
+    // 아이디 정규식
+    function userIdCheck(){
+      const userId = document.querySelector("#userId"); 
+      const userIdInfo = document.querySelector("#userIdInfo"); 
+      // 영문 숫자 조합 8자리 이상
+      let nameExp =  /^[a-z0-9]{4,12}$/;
+      if(!userId.value.match(nameExp))
+        {
+          userIdInfo.innerHTML=` a~z,0~9로 시작하는 4~12자리`;
+            return false;
+        }
+      
+      else if(userId.value === "")
+        {
+          userIdInfo.innerHTML =`필수입력항목입니다.`; 
+          return false; 
+        }
+        else
+        {
+          userIdInfo.innerHTML =``;
+          return true;  
+        }
+    }
+    // 패스워드 입력폼에서 커서 다른데로 이동했을때 콜함수
+    // 패스워드 정규식
+    function userPWCheck(){
+      const userPW = document.querySelector("#userPW"); 
+      const userPWInfo = document.querySelector("#userPWInfo"); 
+      // 영문 숫자 조합 8자리 이상
+      let nameExp =  /^[a-z0-9]{4,12}$/;
+      if(!userPW.value.match(nameExp))
+        {
+            userPWInfo.innerHTML=` a~z,0~9로 시작하는 4~12자리`;
+            return false;
+        }
+     
+      
+      else if(userPW.value === "")
+        {
+          userPWInfo.innerHTML = `필수입력항목입니다.`; 
+          return false; 
+        }
+        else
+        {
+          userPWInfo.innerHTML = ``;
+          return true;  
+        }
+      
+      
+    }
+    // 이름 정규식
+    function userNameCheck()
+    {
+        const userName=document.querySelector(`#userName`);
+        const userNameInfo=document.querySelector(`#userNameInfo`);
+        //한글2~4문자
+        let nameExp =  /^[가-힣]{2,4}$/;
+        if(!userName.value.match(nameExp))
+        {
+            userNameInfo.innerHTML=`한글 2~4문자 입력바람`;
+            return false;
+        }
+        else if(userName.value==="")
+        {
+            userNameInfo.innerHTML=`이름을 빈칸으로 등록하시면 안됩니다.`
+            return false;
+        }
+        else
+        {
+            userNameInfo.innerHTML=``
+            return true;
+        }
+
+    }
+    // 이메일 정규식
+   function userEmailCheck()
+    {
+        const userEmail=document.querySelector(`#userEmail`);
+        const userEmailInfo=document.querySelector(`#userEmailInfo`);
+        //이메일 정규식 . 이후 세글자 필수 (com)
+        let nameExp = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{3,})$/i;
+        if(!userEmail.value.match(nameExp))
+        {
+            userEmailInfo.innerHTML=`유효하지 않은 이메일 주소입니다.`;
+            return false;
+        }
+        else if(userName.value==="")
+        {
+            userEmailInfo.innerHTML=`이메일을 빈칸으로 등록하시면 안됩니다.`
+            return false;
+        }
+        else
+        {
+            userEmailInfo.innerHTML=``
+            return true;
+        }
+
+    }
+
+
+    // 생일 정규식
+    function userBirthCheck()
+    {
+        const userBirth=document.querySelector(`#userBirth`);
+        const userBirthInfo=document.querySelector(`#userBirthInfo`);
+        //숫자6자리
+        let nameExp =/^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
+        if(!userBirth.value.match(nameExp))
+        {
+            userBirthInfo.innerHTML=`정확한 생년월일 6자리를 입력해주세요`;
+            return false;
+        }
+        else if(userName.value==="")
+        {
+            userBirthInfo.innerHTML=`생년월일을 빈칸으로 등록하시면 안됩니다.`
+            return false;
+        }
+        else
+        {
+            userBirthInfo.innerHTML=``
+            return true;
+        }
+    }
+    // 핸드폰번호 정규식
+    function userPhoneNumCheck()
+    {
+        const userPhoneNum=document.querySelector(`#userPhoneNum`);
+        const userPhoneNumInfo=document.querySelector(`#userPhoneNum`);
+        //010-0000-0000 형식으로 쓰시오(-)포함
+        let nameExp =/^010-[0-9]{4}-[0-9]{4}$/
+        if(!userPhoneNum.value.match(nameExp))
+        {
+            userPhoneNumInfo.innerHTML=`010-0000-0000 형식으로(-포함하여) 쓰시오`;
+            return false;
+        }
+        else if(userName.value==="")
+        {
+            userPhoneNumInfo.innerHTML=`핸드폰번호를 빈칸으로 등록하시면 안됩니다.`
+            return false;
+        }
+        else
+        {
+            userPhoneNumInfo.innerHTML=``
+            return true;
+        }
+    }
+   
+    //모든내용확인하고 이상이 없으면 서버로 전송한다.
+    //이상이 있으면 경고창을 주고 전송버튼의 이벤트 기능을 막는다(전송: 서버로 전송하는 기능)
+    function allCheck(event){ 
+      if(userIdCheck() && userPWCheck() && userBirthCheck() && userEmailCheck() &&  userNameCheck()&&  userPhoneNumCheck()){
+        alert(`${userId.value}<br>${userPW.value}<br>${userEmail.value}<br>${userName.value}<br>${userPhoneNum.value}<br>`);
+        return true; 
+      }else{
+        alert("가입내용이 문제가 있습니다. 점검해보세요.");
+        event.preventDefault(); 
+      }
+    }
+
+  </script>
+  <style>
+    .user1
+    {
+        width: 93.5%;
+        padding: 3%;
+    }
+    .user3
+    {
+        width: 100%;
+        padding: 3%;
+    }
+   form
+   {
+    border: 1px solid white;
+    width: 505px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+   }
+  </style>
+</head>
+<body >
+    <form action="insert.jsp" method="post">
+        <b style="color: rgb(3,199,90);font-size:25px;font-weight: 2000;">NAVER</b>
+        <br>
+        <p style="margin-left:56.7% ;">실명 인증된 아이디로 가입 <input type="checkbox"  name="realName" id="realName"> </p>
+    <div style="border: 1px solid white;border-radius: 2px; width: 100%; ">
+
+       <input type="text" class="user1" name="userId" id="userId" onkeyup="userIdCheck()"placeholder="아이디"> <br>
+       <span id="userIdInfo" style="color: red;"></span> 
+      
+       <input type="text" class="user1" name="userPW" id="userPW" onkeyup="userPWCheck()"  placeholder="비밀번호"> <br>
+       <span id="userPWInfo" style="color: red;"></span> 
+   
+       <input type="email" class="user1" name="userEmail" id="userEmail" onkeyup="userEmailCheck()" placeholder="이메일"> <br>
+       <span id="userEmailInfo" style="color: red;"></span> 
+       <br>
+    </div>
+    <div style="border: 1px solid white;border-radius: 2px; width: 100%; ">
+
+    <input type="text" name="userName" id="userName" class="user1" onkeyup="userNameCheck()"placeholder="이름"> <br>
+    <span id="userNameInfo" style="color: red;"></span>
+
+    <input type="text" name="userBirth" id="userBirth" class="user1" onkeyup="userBirthCheck()"placeholder="생년월일 8자리"> <br>
+    <span id="userBirthInfo" style="color: red;"></span> 
+
+    <select name="userPhone" id="userPhone" class="user3"onkeyup="userPhoneCheck()"placeholder="통신사 선택">
+        <option value="1">SKT</option>
+        <option value="2">KT</option>
+        <option value="3">LG U+</option>
+    </select>
+    <span id="userPhoneInfo" style="color: red;"></span> 
+
+    <div class="user1" style="border: 1px solid rgb(118,118,118);border-radius: 2px; display: flex;" >
+        <input type="radio" name="gender" checked value="1" >남자
+        <input type="radio" name="gender"  value="2">여자
+        <input type="radio" name="nationality" checked value="3" style="margin-left: 48%;" >내국인
+        <input type="radio" name="nationality"  value="4">외국인
+    </div>
+
+    <input class="user1" type="text" name="userPhoneNum" id="userPhoneNum" onkeyup="userPhoneNumCheck()" placeholder="휴대전화번호"> <br>
+    <span id="userPhoneNumInfo" style="color: red;"></span> 
+    </div>
+    <br>
+    <div style="border: 1px solid rgb(118,118,118);border-radius: 2px; width: 94.2%; padding: 14.8px;">
+        <input type="checkbox"  name="userConsent" id="userConsent" onkeyup="userConsentCheck()"><b><b style="color:  rgb(3,199,90);">[필수]</b> 인증 약관 전체동의</b>
+    </div>
+    
+    <br>
+    <button type="submit" style="border:1px solid rgb(3,199,90) ; border-radius: 5px;margin-top: 50%; width: 100%; padding: 14.8px;background-color: rgb(3,199,90);color: white;font-size: large;font-weight:900;" onclick="allCheck(event)">인증요청</button>
+    </form>
+</body>
+</html>
